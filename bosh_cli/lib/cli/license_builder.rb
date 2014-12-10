@@ -28,19 +28,22 @@ module Bosh::Cli
       end
 
       final = options[:final]
-      builder = new(directory, final)
+      dry_run = options[:dry_run]
+      blobstore = options[:blobstore]
+      builder = new(directory, final, blobstore)
 
       builders << builder
       builders
     end
 
-    def initialize(release_dir, final = false)
+    def initialize(release_dir, final = false, blobstore)
 
       @name = "license"
       @version = nil
       @tarball_path = nil
       @final = final
       @release_dir = release_dir
+      @blobstore = blobstore
 
       @license_dir = @release_dir
       @dev_builds_dir = File.join(@release_dir, ".dev_builds", @name)

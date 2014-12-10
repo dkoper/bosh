@@ -259,11 +259,21 @@ module Bosh::Cli::Command
           end
         end
 
+        licenses_table = table do |t|
+          t.headings = %w(Name Version Notes)
+          builder.licenses.each do |job|
+            t << artifact_summary(job)
+          end
+        end
+
         say('Packages')
         say(packages_table)
         nl
         say('Jobs')
         say(jobs_table)
+        nl
+        say('Licenses')
+        say(licenses_table)
 
         affected_jobs = builder.affected_jobs
 
